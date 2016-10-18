@@ -9,7 +9,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -39,30 +38,38 @@ public class CashRegisterTest {
     @Test
     public void addingPriceDisplaysPrice() {
         cashRegister.addPrice(23.45);
-        verify(presenter).displayAmount(Mockito.eq(23.45));
+        verifyDisplayShowsAmount(23.45);
     }
 
     @Test
     public void addingSecondPriceDisplaysSum() {
         cashRegister.addPrice(2);
         cashRegister.addPrice(3);
-        verify(presenter).displayAmount(Mockito.eq(2d));
-        verify(presenter).displayAmount(Mockito.eq(5d));
+        verifyDisplayShowsAmount(2d);
+        verifyDisplayShowsAmount(5d);
+    }
+
+    private void verifyDisplayShowsAmount(double amount) {
+        verify(presenter).displayAmount(Mockito.eq(amount));
     }
 
     @Test
     public void addingBarcodeDisplaysPriceFromBarcodeService() {
-        when(barcodeService.getInformation("12345")).thenReturn(new BarcodeInformation(33.45));
+        addBarcodeToService("12345", 33.45);
         cashRegister.addBarcode("12345");
-        verify(presenter).displayAmount(Mockito.eq(33.45));
+        verifyDisplayShowsAmount(33.45);
     }
 
     @Test
     public void addingBarcodeAndPriceDisplaysSumFromBoth() {
-        when(barcodeService.getInformation("12345")).thenReturn(new BarcodeInformation(33.45));
+        addBarcodeToService("12345", 33.45);
         cashRegister.addPrice(2);
         cashRegister.addBarcode("12345");
-        verify(presenter).displayAmount(Mockito.eq(2d));
-        verify(presenter).displayAmount(Mockito.eq(35.45));
+        verifyDisplayShowsAmount(2d);
+        verifyDisplayShowsAmount(35.45);
+    }
+
+    private void addBarcodeToService(String barcode, double price) {
+        when(barcodeService.getInformation(barcode)).thenReturn(new BarcodeInformation(price));
     }
 }
