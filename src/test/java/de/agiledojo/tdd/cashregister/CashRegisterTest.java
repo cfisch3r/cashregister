@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 
 public class CashRegisterTest {
 
@@ -32,13 +33,13 @@ public class CashRegisterTest {
     @Test
     public void addingPriceDisplaysPrice() {
         cashRegister.addPrice(23.45);
-        Mockito.verify(presenter).displayAmount(Mockito.eq(23.45));
+        verify(presenter).displayAmount(Mockito.eq(23.45));
     }
 
     @Test
     public void addingSecondPriceDisplaysSum() {
         cashRegister.addPrice(23.45);
         cashRegister.addPrice(2.45);
-        Mockito.verify(presenter).displayAmount(Mockito.eq(25.9));
+        verify(presenter).displayAmount(Mockito.eq(25.9));
     }
 }
