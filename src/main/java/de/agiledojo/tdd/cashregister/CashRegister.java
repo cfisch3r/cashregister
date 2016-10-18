@@ -2,16 +2,18 @@ package de.agiledojo.tdd.cashregister;
 
 public class CashRegister {
 
-    private double total = 0;
+    private final Session session;
 
     private Presenter presenter;
 
-    public CashRegister(Presenter presenter) {
+    public CashRegister(Presenter presenter, Session session) {
         this.presenter = presenter;
+        this.session = session;
     }
 
     public void addPrice(double price) {
-        total += price;
-        presenter.displayAmount(total);
+        session.addToTotal(price);
+        presenter.displayAmount(session.getTotal());
     }
+
 }

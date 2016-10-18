@@ -24,14 +24,14 @@ public class CashRegisterTest {
 
     @Test
     public void addingPriceDisplaysPrice() {
-        CashRegister cashRegister = new CashRegister(presenter);
+        CashRegister cashRegister = new CashRegister(presenter, new Session());
         cashRegister.addPrice(23.45);
         Mockito.verify(presenter).displayAmount(Mockito.eq(23.45));
     }
 
     @Test
     public void addingSecondPriceDisplaysSum() {
-        CashRegister cashRegister = new CashRegister(presenter);
+        CashRegister cashRegister = new CashRegister(presenter, new Session());
         cashRegister.addPrice(23.45);
         cashRegister.addPrice(2.45);
         Mockito.verify(presenter).displayAmount(Mockito.eq(25.9));
