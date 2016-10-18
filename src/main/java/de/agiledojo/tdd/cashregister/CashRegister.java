@@ -1,6 +1,9 @@
 package de.agiledojo.tdd.cashregister;
 
 public class CashRegister {
+
+    private double total = 0;
+
     private Presenter presenter;
 
     public CashRegister(Presenter presenter) {
@@ -8,6 +11,7 @@ public class CashRegister {
     }
 
     public void addPrice(double price) {
-        presenter.displayAmount(price);
+        total += price;
+        presenter.displayAmount(total);
     }
 }
