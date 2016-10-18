@@ -1,5 +1,6 @@
 package de.agiledojo.tdd.cashregister;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,22 +17,26 @@ public class CashRegisterTest {
 
     @Mock
     private Presenter presenter;
+    private CashRegister cashRegister;
 
     @Test
     public void testWorks() {
         assertTrue(true);
     }
 
+    @Before
+    public void setUp() {
+        cashRegister = new CashRegister(presenter, new Session());
+    }
+
     @Test
     public void addingPriceDisplaysPrice() {
-        CashRegister cashRegister = new CashRegister(presenter, new Session());
         cashRegister.addPrice(23.45);
         Mockito.verify(presenter).displayAmount(Mockito.eq(23.45));
     }
 
     @Test
     public void addingSecondPriceDisplaysSum() {
-        CashRegister cashRegister = new CashRegister(presenter, new Session());
         cashRegister.addPrice(23.45);
         cashRegister.addPrice(2.45);
         Mockito.verify(presenter).displayAmount(Mockito.eq(25.9));
