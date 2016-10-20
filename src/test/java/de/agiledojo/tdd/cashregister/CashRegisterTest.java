@@ -44,10 +44,10 @@ public class CashRegisterTest {
 
     @Test
     public void addingSecondPriceDisplaysSum() {
-        cashRegister.addPrice(2);
-        cashRegister.addPrice(3);
-        verifyDisplayShowsAmount(2d);
-        verifyDisplayShowsAmount(5d);
+        cashRegister.addPrice(23.45);
+        cashRegister.addPrice(3.45);
+        verifyDisplayShowsAmount(23.45);
+        verifyDisplayShowsAmount(26.9);
     }
 
     private void verifyDisplayShowsAmount(double amount) {
@@ -64,10 +64,10 @@ public class CashRegisterTest {
     @Test
     public void addingBarcodeAndPriceDisplaysSumFromBoth() {
         addBarcodeToService("12345", 33.45);
-        cashRegister.addPrice(2);
+        cashRegister.addPrice(2.45);
         cashRegister.addBarcode("12345");
-        verifyDisplayShowsAmount(2d);
-        verifyDisplayShowsAmount(35.45);
+        verifyDisplayShowsAmount(2.45);
+        verifyDisplayShowsAmount(35.9);
     }
 
     @Test

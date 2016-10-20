@@ -1,16 +1,19 @@
 package de.agiledojo.tdd.cashregister;
 
+import java.math.BigDecimal;
+
 public class Session {
-    double total = 0;
+    BigDecimal total = new BigDecimal(0);
 
     public Session() {
     }
 
     double getTotal() {
-        return total;
+        return total.doubleValue();
     }
 
     void addToTotal(double price) {
-        total += price;
+        total = total.add(new BigDecimal(price));
+        total.setScale(2,BigDecimal.ROUND_HALF_DOWN);
     }
 }
