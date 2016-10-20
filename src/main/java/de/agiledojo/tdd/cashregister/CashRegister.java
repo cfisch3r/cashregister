@@ -20,7 +20,11 @@ public class CashRegister {
 
     public void addBarcode(String barcode) {
         BarcodeInformation information = barcodeService.getInformation(barcode);
-        session.addToTotal(information.getPrice());
-        presenter.displayAmount(session.getTotal());
+        if (information.getVerification() == Verification.NONE) {
+            session.addToTotal(information.getPrice());
+            presenter.displayAmount(session.getTotal());
+        } else {
+            presenter.showVerificationAlert();
+        }
     }
 }

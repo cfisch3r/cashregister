@@ -69,7 +69,18 @@ public class CashRegisterTest {
         verifyDisplayShowsAmount(35.45);
     }
 
+    @Test
+    public void addingBarcodeForAdultProductShowsVerficationAlert() {
+        addBarcodeForAdultProductToService("456",56.3);
+        cashRegister.addBarcode("456");
+        verify(presenter).showVerificationAlert();
+    }
+
     private void addBarcodeToService(String barcode, double price) {
-        when(barcodeService.getInformation(barcode)).thenReturn(new BarcodeInformation(price));
+        when(barcodeService.getInformation(barcode)).thenReturn(new BarcodeInformation(price, Verification.NONE));
+    }
+
+    private void addBarcodeForAdultProductToService(String barcode, double price) {
+        when(barcodeService.getInformation(barcode)).thenReturn(new BarcodeInformation(price, Verification.ADULT));
     }
 }

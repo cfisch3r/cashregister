@@ -5,4 +5,6 @@ package de.agiledojo.tdd.cashregister;
  */
 public interface Presenter {
     void displayAmount(double amount);
+
+    void showVerificationAlert();
 }
