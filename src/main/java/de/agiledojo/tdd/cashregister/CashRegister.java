@@ -19,12 +19,17 @@ public class CashRegister {
     }
 
     public void addBarcode(String barcode) {
-        BarcodeInformation information = barcodeService.getInformation(barcode);
-        if (information.getVerification() == Verification.NONE) {
-            session.addToTotal(information.getPrice());
-            presenter.displayAmount(session.getTotal());
-        } else {
-            presenter.showVerificationAlert();
+        BarcodeInformation information = null;
+        try {
+            information = barcodeService.getInformation(barcode);
+            if (information.getVerification() == Verification.NONE) {
+                session.addToTotal(information.getPrice());
+                presenter.displayAmount(session.getTotal());
+            } else {
+                presenter.showVerificationAlert();
+            }
+        } catch (RuntimeException e) {
+            presenter.showCannotFindBarCodeInformation();
         }
     }
 }

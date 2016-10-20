@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -74,6 +75,13 @@ public class CashRegisterTest {
         addBarcodeForAdultProductToService("456",56.3);
         cashRegister.addBarcode("456");
         verify(presenter).showVerificationAlert();
+    }
+
+    @Test
+    public void addingBarcodeWhenBarcodeServiceFailsShows() {
+        when(barcodeService.getInformation(any(String.class))).thenThrow(new RuntimeException());
+        cashRegister.addBarcode("456");
+        verify(presenter).showCannotFindBarCodeInformation();
     }
 
     private void addBarcodeToService(String barcode, double price) {

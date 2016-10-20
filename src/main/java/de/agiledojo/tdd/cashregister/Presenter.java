@@ -7,4 +7,6 @@ public interface Presenter {
     void displayAmount(double amount);
 
     void showVerificationAlert();
+
+    void showCannotFindBarCodeInformation();
 }
