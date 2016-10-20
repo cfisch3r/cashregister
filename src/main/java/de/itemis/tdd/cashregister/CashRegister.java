@@ -8,7 +8,7 @@ public class CashRegister {
         this.presenter = presenter;
     }
 
-    public void addPrice(double price) {
+    public void enterPrice(double price) {
         presenter.displayAmount(price);
     }
 }

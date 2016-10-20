@@ -17,9 +17,9 @@ public class CashRegisterTest {
     private Presenter presenter;
 
     @Test
-    public void addingPriceDisplaysPrice() {
+    public void enteringPriceDisplaysPrice() {
         CashRegister cashRegister = new CashRegister(presenter);
-        cashRegister.addPrice(23.45);
+        cashRegister.enterPrice(23.45);
         verify(presenter).displayAmount(23.45);
     }
 }
