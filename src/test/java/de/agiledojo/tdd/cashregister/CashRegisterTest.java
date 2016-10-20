@@ -26,11 +26,6 @@ public class CashRegisterTest {
 
     private CashRegister cashRegister;
 
-    @Test
-    public void testWorks() {
-        assertTrue(true);
-    }
-
     @Before
     public void setUp() {
         cashRegister = new CashRegister(presenter, new Session(), barcodeService);
