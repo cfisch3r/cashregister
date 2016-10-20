@@ -1,4 +1,4 @@
-group 'de.agiledojo.tdd'
+group 'de.itemis.tdd'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
