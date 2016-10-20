@@ -79,9 +79,13 @@ public class CashRegisterTest {
 
     @Test
     public void addingBarcodeWhenBarcodeServiceFailsShows() {
-        when(barcodeService.getInformation(any(String.class))).thenThrow(new RuntimeException());
+        throwExceptionWhenBarcodeServiceIsCalled();
         cashRegister.addBarcode("456");
         verify(presenter).showCannotFindBarCodeInformation();
+    }
+
+    private void throwExceptionWhenBarcodeServiceIsCalled() {
+        when(barcodeService.getInformation(any(String.class))).thenThrow(new RuntimeException());
     }
 
     private void addBarcodeToService(String barcode, double price) {

@@ -14,22 +14,27 @@ public class CashRegister {
     }
 
     public void addPrice(double price) {
-        session.addToTotal(price);
-        presenter.displayAmount(session.getTotal());
+        addPriceToTotal(price);
     }
 
     public void addBarcode(String barcode) {
-        BarcodeInformation information = null;
         try {
-            information = barcodeService.getInformation(barcode);
-            if (information.getVerification() == Verification.NONE) {
-                session.addToTotal(information.getPrice());
-                presenter.displayAmount(session.getTotal());
-            } else {
+            BarcodeInformation information = barcodeService.getInformation(barcode);
+            if (verficationIsNeeded(information)) {
                 presenter.showVerificationAlert();
             }
+            addPriceToTotal(information.getPrice());
         } catch (RuntimeException e) {
             presenter.showCannotFindBarCodeInformation();
         }
+    }
+
+    private boolean verficationIsNeeded(BarcodeInformation information) {
+        return information.getVerification() == Verification.ADULT;
+    }
+
+    private void addPriceToTotal(double price) {
+        session.addToTotal(price);
+        presenter.displayAmount(session.getTotal());
     }
 }
